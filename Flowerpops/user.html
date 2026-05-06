@@ -38,43 +38,73 @@
             <div class="container">
                 <h2 class="section-title">Your Dashboard</h2>
                 <p class="section-description">Quick summary of your account activity and the latest updates from Flowerpops.</p>
-                <div class="dashboard-grid">
-                    <article class="dashboard-card">
-                        <h3>Active Orders</h3>
-                        <p>2 orders in progress</p>
-                    </article>
-                    <article class="dashboard-card">
-                        <h3>Saved Favorites</h3>
-                        <p>5 floral arrangements saved</p>
-                    </article>
-                    <article class="dashboard-card">
-                        <h3>Rewards</h3>
-                        <p>120 loyalty points available</p>
-                    </article>
+                <div class="dashboard-layout">
+                    <div class="dashboard-grid">
+                        <article class="dashboard-card">
+                            <h3>Active Orders</h3>
+                            <p>2 orders in progress</p>
+                        </article>
+                        <article class="dashboard-card">
+                            <h3>Saved Favorites</h3>
+                            <p>5 floral arrangements saved</p>
+                        </article>
+                        <article class="dashboard-card">
+                            <h3>Rewards</h3>
+                            <p>120 loyalty points available</p>
+                        </article>
+                    </div>
+
+                    <aside class="mini-orders">
+                        <div class="mini-orders-card">
+                            <div class="mini-orders-header">
+                                <h3>Recent Orders</h3>
+                                <span>Live summary</span>
+                            </div>
+                            <div class="mini-order-item">
+                                <h4>Order #2109</h4>
+                                <p>On the way</p>
+                            </div>
+                            <div class="mini-order-item">
+                                <h4>Order #2110</h4>
+                                <p>Preparing for shipment</p>
+                            </div>
+                            <a href="#orders" class="btn btn-secondary mini-orders-link">See all orders</a>
+                        </div>
+                    </aside>
+                </div>
+
+                <div class="continue-slider">
+                    <div class="continue-slider-header">
+                        <h3>Continue browsing flowers</h3>
+                        <a href="user-gallery.html" class="btn btn-secondary">Open Gallery</a>
+                    </div>
+                    <div class="slider-track">
+                        <article class="slider-card">
+                            <img src="thumb.jfif" alt="Fresh Thumbelina">
+                            <div class="slider-card-body">
+                                <h4>Fresh Thumbelina</h4>
+                                <p>Delicate and charming, perfect for a gentle touch of beauty.</p>
+                            </div>
+                        </article>
+                        <article class="slider-card">
+                            <img src="muse.jfif" alt="Muse">
+                            <div class="slider-card-body">
+                                <h4>Muse</h4>
+                                <p>A rose boquet that captures the beauty of a rose in a small and affordable package.</p>
+                            </div>
+                        </article>
+                        <article class="slider-card">
+                            <img src="soleil.jfif" alt="Crème Soleil">
+                            <div class="slider-card-body">
+                                <h4>Crème Soleil</h4>
+                                <p>Bright and cheerful sunflowers arranged to spread joy and warmth wherever they go..</p>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="orders" class="orders-section">
-            <div class="container">
-                <h2 class="section-title">My Orders</h2>
-                <p class="section-description">Track recent orders and review delivery status at a glance.</p>
-                <div class="order-list">
-                    <article class="order-item">
-                        <h3>Order #2109</h3>
-                        <p>Status: On the way</p>
-                    </article>
-                    <article class="order-item">
-                        <h3>Order #2110</h3>
-                        <p>Status: Preparing for shipment</p>
-                    </article>
-                    <article class="order-item">
-                        <h3>Order #2108</h3>
-                        <p>Status: Delivered</p>
-                    </article>
-                </div>
-            </div>
-        </section>
         
     </main>
 
