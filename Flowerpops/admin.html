@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowerpops Admin Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.jpg" alt="Flowerpops Logo">
+            <span>FLOWERPOPS Admin</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#orders">Order Management</a></li>
+                <li><a href="#notifications" id="notifications-link">Notification</a></li>
+                <li><a href="#profile" id="profile-link">👤 Profile</a></li>
+                <li><a href="login.html" class="auth-link">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        <section id="dashboard" class="dashboard-section">
+            <div class="container">
+                <h1>Admin Dashboard</h1>
+                <p>Welcome, Admin. Review the latest metrics and manage your operations.</p>
+                <div class="dashboard-grid">
+                    <article class="dashboard-card">
+                        <h2>Open Orders</h2>
+                        <p>42</p>
+                    </article>
+                    <article class="dashboard-card">
+                        <h2>New Notifications</h2>
+                        <p>8</p>
+                    </article>
+                    <article class="dashboard-card">
+                        <h2>Pending Shipments</h2>
+                        <p>14</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="analytics" class="analytics-section">
+            <div class="container">
+                <h2>Analytics</h2>
+                <p>Transactions only view for quick operational insights.</p>
+                <div class="analytics-summary">
+                    <div class="analytics-card">
+                        <h3>Transactions Today</h3>
+                        <p>117</p>
+                    </div>
+                </div>
+                <div class="analytics-chart-card">
+                    <h3>Daily Transactions</h3>
+                    <canvas id="admin-daily-transactions-chart"></canvas>
+                    <div class="analytics-chart-legend">
+                        <span class="orders-legend">Transactions</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="orders" class="orders-section">
+            <div class="container">
+                <h2>Order Management</h2>
+                <p>Monitor orders, update statuses, and manage customer requests.</p>
+                <div class="order-list">
+                    <article class="order-item">
+                        <h3>Order #1023</h3>
+                        <p>Status: Processing</p>
+                    </article>
+                    <article class="order-item">
+                        <h3>Order #1024</h3>
+                        <p>Status: Ready for Delivery</p>
+                    </article>
+                    <article class="order-item">
+                        <h3>Order #1025</h3>
+                        <p>Status: Completed</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Profile Popup -->
+    <div id="profile-popup" class="profile-popup">
+        <div class="profile-popup-content">
+            <div class="profile-popup-header">
+                <h3>Profile Management</h3>
+                <button id="close-profile-popup" class="close-popup-btn">&times;</button>
+            </div>
+            <div class="profile-popup-body">
+                <div class="profile-info">
+                    <p><strong>Name:</strong> Admin</p>
+                    <p><strong>Email:</strong> admin@flowerpops.com</p>
+                    <p><strong>Role:</strong> Admin</p>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-secondary">Edit Profile</button>
+                    <button class="btn btn-secondary">Change Password</button>
+                    <button class="btn btn-secondary">Account Settings</button>
+                    <button class="btn btn-secondary">Admin Permissions</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Popup -->
+    <div id="notification-popup" class="notification-popup">
+        <div class="profile-popup-content">
+            <div class="profile-popup-header">
+                <h3>Notifications</h3>
+                <button id="close-notification-popup" class="close-popup-btn">&times;</button>
+            </div>
+            <div class="profile-popup-body">
+                <ul class="notification-list">
+                    <li>New low-stock alert on seasonal roses.</li>
+                    <li>Invoice payment pending for order #1022.</li>
+                    <li>Review pending for customer rating from last delivery.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2014 Flowerpops. All rights reserved. | Admin Dashboard.</p>
+    </footer>
+
+    <script>
+        const profileLink = document.getElementById('profile-link');
+        const notificationLink = document.getElementById('notifications-link');
+        const profilePopup = document.getElementById('profile-popup');
+        const notificationPopup = document.getElementById('notification-popup');
+        const closeProfilePopup = document.getElementById('close-profile-popup');
+        const closeNotificationPopup = document.getElementById('close-notification-popup');
+
+        function closeAllPopups() {
+            profilePopup.classList.remove('active');
+            notificationPopup.classList.remove('active');
+        }
+
+        profileLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeAllPopups();
+            profilePopup.classList.add('active');
+        });
+
+        notificationLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeAllPopups();
+            notificationPopup.classList.add('active');
+        });
+
+        closeProfilePopup.addEventListener('click', function() {
+            profilePopup.classList.remove('active');
+        });
+
+        closeNotificationPopup.addEventListener('click', function() {
+            notificationPopup.classList.remove('active');
+        });
+
+        profilePopup.addEventListener('click', function(e) {
+            if (e.target === profilePopup) {
+                closeAllPopups();
+            }
+        });
+
+        notificationPopup.addEventListener('click', function(e) {
+            if (e.target === notificationPopup) {
+                closeAllPopups();
+            }
+        });
+
+        function drawBarChart(canvasId, labels, datasets) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const rect = canvas.getBoundingClientRect();
+            const scale = window.devicePixelRatio || 1;
+            canvas.width = rect.width * scale;
+            canvas.height = rect.height * scale;
+            const ctx = canvas.getContext('2d');
+            ctx.setTransform(scale, 0, 0, scale, 0, 0);
+            ctx.clearRect(0, 0, rect.width, rect.height);
+
+            const padding = 40;
+            const chartWidth = rect.width - padding * 2;
+            const chartHeight = rect.height - padding * 1.5;
+            const maxValue = Math.max(...datasets.flatMap(ds => ds.data)) * 1.15;
+            const labelCount = labels.length;
+            const groupWidth = chartWidth / labelCount;
+            const barWidth = groupWidth * 0.35;
+
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#6f4a56';
+            ctx.textAlign = 'center';
+
+            // Draw grid lines and y-axis labels
+            ctx.strokeStyle = 'rgba(255, 138, 174, 0.25)';
+            ctx.lineWidth = 1;
+            const gridCount = 5;
+            for (let i = 0; i <= gridCount; i++) {
+                const y = padding + (chartHeight / gridCount) * i;
+                const value = Math.round(maxValue - (maxValue / gridCount) * i);
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(rect.width - padding, y);
+                ctx.stroke();
+                ctx.fillStyle = '#7f5a6f';
+                ctx.textAlign = 'right';
+                ctx.fillText(value.toString(), padding - 10, y + 5);
+            }
+
+            // Draw bars
+            datasets.forEach((dataset, datasetIndex) => {
+                dataset.data.forEach((value, index) => {
+                    const x = padding + groupWidth * index + datasetIndex * barWidth + groupWidth * 0.15;
+                    const barHeight = (value / maxValue) * chartHeight;
+                    const y = padding + chartHeight - barHeight;
+                    ctx.fillStyle = dataset.color;
+                    ctx.fillRect(x, y, barWidth, barHeight);
+                });
+            });
+
+            // Draw labels
+            labels.forEach((label, index) => {
+                const x = padding + groupWidth * index + groupWidth / 2;
+                const y = padding + chartHeight + 24;
+                ctx.fillStyle = '#6f4a56';
+                ctx.textAlign = 'center';
+                ctx.fillText(label, x, y);
+            });
+        }
+
+        function setupAdminAnalyticsChart() {
+            drawBarChart('admin-daily-transactions-chart', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], [
+                { label: 'Transactions', data: [18, 22, 16, 24, 20, 19, 15], color: '#ff5a8c' }
+            ]);
+        }
+
+        setupAdminAnalyticsChart();
+    </script>
+
+</body>
+</html>
